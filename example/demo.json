@@ -1,0 +1,130 @@
+{
+  "environment": {
+    "name": "test1",
+    "render": true,
+    "save": true
+  },
+  "agents": [
+    {
+      "id": "agent1",
+      "cost": 4,
+      "skills": [
+        "transport",
+        "balance"
+      ]
+    },
+    {
+      "id": "agent2",
+      "cost": 3,
+      "skills": [
+        "transport",
+        "dropout"
+      ]
+    },
+    {
+      "id": "agent3",
+      "cost": 5,
+      "skills": [
+        "transport",
+        "balance",
+        "dropout"
+      ]
+    },
+    {
+      "id": "agent4",
+      "cost": 2,
+      "skills": [
+        "dropout",
+        "dispersion"
+      ]
+    },
+    {
+      "id": "agent5",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent6",
+      "cost": 1,
+      "skills": [
+        "wheel"
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "id": "team1",
+      "agents": [
+        "agent1",
+        "agent2",
+        "agent3",
+        "agent4",
+        "agent5",
+        "agent6"
+      ]
+    },
+    {
+      "id": "team2",
+      "agents": [
+        "agent3",
+        "agent4",
+        "agent5",
+        "agent6"
+      ]
+    }
+  ],
+  "goals": [
+    {
+      "id": "goal1",
+      "tasks": [
+        {
+          "environment": "transport",
+          "env_kwargs": {
+            "n_packages": 2,
+            "package_width": 0.2,
+            "package_length": 0.2,
+            "package_mass": 100
+          }
+        }
+      ]
+    },
+    {
+      "id": "goal2",
+      "tasks": [
+        {
+          "environment": "balance",
+          "env_kwargs": {
+            "n_packages": 2,
+            "package_mass": 10
+          }
+        }
+      ]
+    },
+    {
+      "id": "goal3",
+      "tasks": [
+        {
+          "environment": "transport",
+          "env_kwargs": {
+            "n_packages": 2,
+            "package_width": 0.2,
+            "package_length": 0.2,
+            "package_mass": 10
+          }
+        },
+        {
+          "environment": "balance",
+          "env_kwargs": {
+            "n_packages": 2,
+            "package_mass": 10
+          }
+        }
+      ]
+    }
+  ]
+}
