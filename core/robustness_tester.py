@@ -1,6 +1,3 @@
-#  Copyright (c) 2022-2023.
-#  ProrokLab (https://www.proroklab.org/)
-#  All rights reserved.
 import time
 from typing import Type
 
@@ -11,7 +8,7 @@ from vmas.simulator.heuristic_policy import BaseHeuristicPolicy, RandomPolicy
 from vmas.simulator.utils import save_video
 
 
-def run_heuristic(
+def run_robustness_tester(
         scenario_name: str,
         heuristic: Type[BaseHeuristicPolicy] = RandomPolicy,
         n_steps: int = 200,
@@ -21,8 +18,6 @@ def run_heuristic(
         save_render: bool = False,
         device: str = "cpu",
 ):
-    assert not (save_render and not render), "To save the video you have to render it"
-
     # Scenario specific variables
     policy = heuristic(continuous_action=True)
 
@@ -78,7 +73,7 @@ if __name__ == "__main__":
     from vmas.scenarios.transport import HeuristicPolicy as TransportHeuristic
     from vmas.scenarios.wheel import HeuristicPolicy as WheelHeuristic
 
-    run_heuristic(
+    run_robustness_tester(
         scenario_name="wheel",
         # scenario_name="transport",
         heuristic=WheelHeuristic,

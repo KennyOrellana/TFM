@@ -19,12 +19,12 @@ class Task(BaseModel):
         return self.environment  # TODO: raise exception if not supported
 
     # @abstractmethod
-    def get_policy(self) -> Type[HeuristicPolicy]:
-        if self.environment == "transport":
-            return TransportPolicy
-        if self.environment == "balance":
-            return BalancePolicy
-        if self.environment == "wheel":
-            return WheelPolicy
-        else:
-            return None  # TODO: raise exception
+    # def get_policy(self) -> Type[HeuristicPolicy]:
+    #     if self.environment == "transport":
+    #         return TransportPolicy
+    #     if self.environment == "balance":
+    #         return BalancePolicy
+    #     if self.environment == "wheel":
+    #         return WheelPolicy
+    #     else:
+    #         return None  # TODO: raise exception
