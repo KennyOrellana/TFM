@@ -3,6 +3,7 @@ import json
 from abc import ABC
 
 from environments.base_environment import BaseEnvironment
+from environments.robust_environment import RobustEnvironment
 from models.simulation import Simulation
 
 
@@ -45,7 +46,21 @@ class BaseOrchestrator(ABC):
                     agents_can_complete_task = [agent for agent in agents if task.can_complete(agent.skills)]
 
                     env_arguments = copy.deepcopy(task.env_kwargs)
-                    env_arguments["n_agents"] = len(agents_can_complete_task)
-                    assert env_arguments["n_agents"] > 0
+                    n_agents = len(agents_can_complete_task)
+                    assert n_agents > 0
 
-                    BaseEnvironment(task.get_scenario_name(), env_arguments)
+                    # Revisar porque hay un out of index, quizás debamos probar si cada team puede ejecutar cada tarea en lugar de como está ahorita
+                    if team.k_robustness == 0:
+                        BaseEnvironment(
+                            name=task.get_scenario_name(),
+                            n_agents=n_agents,
+                            kwargs=env_arguments,
+                        )
+                    else:
+                        RobustEnvironment(
+                            name=task.get_scenario_name(),
+                            n_agents=n_agents,
+                            kwargs=env_arguments,
+                            settings=self.simulation_data.environment,
+                            k_robustness=team.k_robustness
+                        )

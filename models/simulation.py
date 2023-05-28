@@ -15,4 +15,10 @@ class Simulation(BaseModel):
     def get_agents_of_team(self, team_id):
         agents_ids = [agent_id for team in self.teams if team.id == team_id for agent_id in team.agents]
 
-        return [agent for agent in self.agents if agent.id in agents_ids]
+        agents = []
+        for agent_id in agents_ids:
+            for agent in self.agents:
+                if agent.id == agent_id:
+                    agents.append(agent)
+
+        return agents

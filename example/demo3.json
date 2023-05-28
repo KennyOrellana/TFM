@@ -55,6 +55,66 @@
       "skills": [
         "wheel"
       ]
+    },
+    {
+      "id": "agent7",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent8",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent9",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent10",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent11",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent12",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
     }
   ],
   "teams": [
@@ -63,53 +123,21 @@
       "k_robustness": 2,
       "agents": [
         "agent1",
-        "agent1",
-        "agent1",
-        "agent1",
         "agent2",
         "agent3",
         "agent4",
         "agent5",
-        "agent6"
-      ]
-    },
-    {
-      "id": "team2",
-      "agents": [
-        "agent3",
-        "agent4",
-        "agent5",
-        "agent6"
+        "agent6",
+        "agent7",
+        "agent8",
+        "agent9",
+        "agent10",
+        "agent11",
+        "agent12"
       ]
     }
   ],
   "goals": [
-    {
-      "id": "goal1",
-      "tasks": [
-        {
-          "environment": "transport",
-          "env_kwargs": {
-            "n_packages": 2,
-            "package_width": 0.2,
-            "package_length": 0.2,
-            "package_mass": 100
-          }
-        }
-      ]
-    },
-    {
-      "id": "goal2",
-      "tasks": [
-        {
-          "environment": "balance",
-          "env_kwargs": {
-            "n_packages": 2,
-            "package_mass": 10
-          }
-        }
-      ]
-    },
     {
       "id": "goal3",
       "tasks": [
@@ -119,13 +147,6 @@
             "n_packages": 2,
             "package_width": 0.2,
             "package_length": 0.2,
-            "package_mass": 10
-          }
-        },
-        {
-          "environment": "balance",
-          "env_kwargs": {
-            "n_packages": 2,
             "package_mass": 10
           }
         }

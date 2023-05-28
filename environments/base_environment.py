@@ -10,10 +10,11 @@ from environments.settings import Settings
 
 
 class BaseEnvironment(ABC):
-    def __init__(self, name, kwargs):
+    def __init__(self, name, n_agents, kwargs):
         self.name = name
         policy = PolicyProvider.get_policy_for(name)
         self.policy = policy(continuous_action=Settings.CONTINUOUS_ACTIONS)
+        self.n_agents = n_agents
         self.kwargs = kwargs
         self.steps = Settings.NUM_STEPS
         self.n_envs = Settings.NUM_ENVS
@@ -25,10 +26,13 @@ class BaseEnvironment(ABC):
     def _initialize_environment(self):
         return make_env(
             scenario=self.name,
+            n_agents=self.n_agents,
             num_envs=self.n_envs,
             device=Settings.DEVICE,
             continuous_actions=Settings.CONTINUOUS_ACTIONS,
             wrapper=Settings.WRAPPER,
+            random_package_pos_on_line=True,
+            control_two_agents=True,
             **self.kwargs)
 
     def _run(self):
@@ -41,7 +45,10 @@ class BaseEnvironment(ABC):
             step += 1
             actions = [None] * len(obs)
             for i in range(len(obs)):
-                actions[i] = self.policy.compute_action(obs[i], u_range=self.env.agents[i].u_range)
+                if self.is_agent_active(i):
+                    actions[i] = self.policy.compute_action(obs[i], u_range=self.env.agents[i].u_range)
+                else:
+                    actions[i] = self.policy.compute_action(obs[i], u_range=0.0)
             obs, rews, dones, info = self.env.step(actions)
             rewards = torch.stack(rews, dim=1)
             global_reward = rewards.mean(dim=1)
@@ -68,3 +75,6 @@ class BaseEnvironment(ABC):
             f"It took: {total_time}s for {self.steps} steps of {self.n_envs} parallel environments\n"
             f"The average total reward was {total_reward}"
         )
+
+    def is_agent_active(self, agent_index):
+        return True

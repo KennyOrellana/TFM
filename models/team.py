@@ -2,15 +2,11 @@ import copy
 
 from pydantic import BaseModel
 
-from models.agent import Agent
-
 
 class Team(BaseModel):
     id: str
     agents = [str]
-
-    # def __init__(self, agents):
-    #     self.agents = agents
+    k_robustness = 0
 
     def get_cost(self):
         return sum([agent.get_cost() for agent in self.agents])
