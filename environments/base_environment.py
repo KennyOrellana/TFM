@@ -7,6 +7,7 @@ from vmas.simulator.utils import save_video
 
 from core.policy_provider import PolicyProvider
 from environments.settings import Settings
+from rllib.balance import BalanceEnvironment
 
 
 class BaseEnvironment(ABC):
@@ -21,21 +22,27 @@ class BaseEnvironment(ABC):
         self.render = True
         self.save_render = True
         self.env = self._initialize_environment()
-        self._run()
+        # self._run()
 
     def _initialize_environment(self):
-        return make_env(
-            scenario=self.name,
-            n_agents=self.n_agents,
-            num_envs=self.n_envs,
-            device=Settings.DEVICE,
-            continuous_actions=Settings.CONTINUOUS_ACTIONS,
-            wrapper=Settings.WRAPPER,
-            random_package_pos_on_line=True,
-            control_two_agents=True,
-            **self.kwargs)
+        if self.name == "balance":
+            return self._initialize_balance()
+        else:
+            return make_env(
+                scenario=self.name,
+                n_agents=self.n_agents,
+                num_envs=self.n_envs,
+                device=Settings.DEVICE,
+                continuous_actions=Settings.CONTINUOUS_ACTIONS,
+                wrapper=Settings.WRAPPER,
+                random_package_pos_on_line=True,
+                control_two_agents=True,
+                **self.kwargs)
 
     def _run(self):
+        if self.name == "balance":
+            return
+
         frame_list = []  # For creating a gif
         init_time = time.time()
         step = 0
@@ -75,6 +82,9 @@ class BaseEnvironment(ABC):
             f"It took: {total_time}s for {self.steps} steps of {self.n_envs} parallel environments\n"
             f"The average total reward was {total_reward}"
         )
+
+    def _initialize_balance(self):
+        return BalanceEnvironment(self.n_agents)
 
     def is_agent_active(self, agent_index):
         return True

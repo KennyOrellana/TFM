@@ -149,27 +149,6 @@
           }
         }
       ]
-    },
-    {
-      "id": "goal3",
-      "tasks": [
-        {
-          "environment": "transport",
-          "env_kwargs": {
-            "n_packages": 2,
-            "package_width": 0.2,
-            "package_length": 0.2,
-            "package_mass": 10
-          }
-        },
-        {
-          "environment": "balance",
-          "env_kwargs": {
-            "n_packages": 2,
-            "package_mass": 10
-          }
-        }
-      ]
     }
   ]
 }
