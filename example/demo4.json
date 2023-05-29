@@ -1,0 +1,158 @@
+{
+  "environment": {
+    "name": "test1",
+    "render": true,
+    "save": true,
+    "failure_probability": 0.1
+  },
+  "agents": [
+    {
+      "id": "agent1",
+      "cost": 4,
+      "skills": [
+        "transport",
+        "balance",
+        "ball_trajectory"
+      ]
+    },
+    {
+      "id": "agent2",
+      "cost": 3,
+      "skills": [
+        "transport",
+        "dropout",
+        "ball_trajectory"
+      ]
+    },
+    {
+      "id": "agent3",
+      "cost": 5,
+      "skills": [
+        "transport",
+        "balance",
+        "dropout",
+        "ball_trajectory"
+      ]
+    },
+    {
+      "id": "agent4",
+      "cost": 2,
+      "skills": [
+        "dropout",
+        "dispersion",
+        "ball_trajectory"
+      ]
+    },
+    {
+      "id": "agent5",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent6",
+      "cost": 1,
+      "skills": [
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent7",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent8",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent9",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent10",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent11",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    },
+    {
+      "id": "agent12",
+      "cost": 9,
+      "skills": [
+        "transport",
+        "balance",
+        "dispersion",
+        "wheel"
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "id": "team1",
+      "k_robustness": 2,
+      "agents": [
+        "agent1",
+        "agent2",
+        "agent3",
+        "agent4",
+        "agent5",
+        "agent6",
+        "agent7",
+        "agent8",
+        "agent9",
+        "agent10",
+        "agent11",
+        "agent12"
+      ]
+    }
+  ],
+  "goals": [
+    {
+      "id": "goal2",
+      "tasks": [
+        {
+          "environment": "ball_trajectory",
+          "env_kwargs": {
+            "n_packages": 2,
+            "package_mass": 10
+          }
+        }
+      ]
+    }
+  ]
+}

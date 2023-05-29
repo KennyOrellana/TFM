@@ -8,13 +8,15 @@ from vmas.simulator.utils import save_video
 from core.policy_provider import PolicyProvider
 from environments.settings import Settings
 from rllib.balance import BalanceEnvironment
+from rllib.ball_trajectory import BallTrajectoryEnvironment
 
 
 class BaseEnvironment(ABC):
     def __init__(self, name, n_agents, kwargs):
         self.name = name
         policy = PolicyProvider.get_policy_for(name)
-        self.policy = policy(continuous_action=Settings.CONTINUOUS_ACTIONS)
+        if policy is not None:
+            self.policy = policy(continuous_action=Settings.CONTINUOUS_ACTIONS)
         self.n_agents = n_agents
         self.kwargs = kwargs
         self.steps = Settings.NUM_STEPS
@@ -27,6 +29,8 @@ class BaseEnvironment(ABC):
     def _initialize_environment(self):
         if self.name == "balance":
             return self._initialize_balance()
+        elif self.name == "ball_trajectory":
+            return self._initialize_ball_trajectory()
         else:
             return make_env(
                 scenario=self.name,
@@ -85,6 +89,9 @@ class BaseEnvironment(ABC):
 
     def _initialize_balance(self):
         return BalanceEnvironment(self.n_agents)
+
+    def _initialize_ball_trajectory(self):
+        return BallTrajectoryEnvironment(self.n_agents)
 
     def is_agent_active(self, agent_index):
         return True

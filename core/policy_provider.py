@@ -9,7 +9,7 @@ class PolicyProvider:
 
     @staticmethod
     def get_policy_for(environment) -> Type[HeuristicPolicy]:
-        if environment == "transport":
+        if environment == "transport" or environment == "reverse_transport":
             return TransportPolicy
         if environment == "balance":
             return BalancePolicy
