@@ -1,4 +1,4 @@
-class Settings:
+class EnvParameters:
     DEVICE = "cpu"
     NUM_ENVS = 300
     NUM_STEPS = 500

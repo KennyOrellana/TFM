@@ -28,7 +28,7 @@ class BaseOrchestrator(ABC):
 
     def _check_data(self):
         assert self.simulation_data is not None
-        assert self.simulation_data.environment is not None
+        assert self.simulation_data.settings is not None
         assert self.simulation_data.teams is not None
         assert self.simulation_data.goals is not None
         assert len(self.simulation_data.teams) > 0
@@ -61,6 +61,6 @@ class BaseOrchestrator(ABC):
                             name=task.get_scenario_name(),
                             n_agents=n_agents,
                             kwargs=env_arguments,
-                            settings=self.simulation_data.environment,
+                            settings=self.simulation_data.settings,
                             k_robustness=team.k_robustness
                         )

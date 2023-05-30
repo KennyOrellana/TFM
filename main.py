@@ -3,7 +3,7 @@ from core.base_orchestrator import BaseOrchestrator
 
 def run():
     orchestrator = BaseOrchestrator()
-    orchestrator.execute('example/demo4.json')
+    orchestrator.execute()
 
 
 if __name__ == '__main__':

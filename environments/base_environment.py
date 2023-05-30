@@ -6,7 +6,7 @@ from vmas import make_env
 from vmas.simulator.utils import save_video
 
 from core.policy_provider import PolicyProvider
-from environments.settings import Settings
+from environments.env_parameters import EnvParameters
 from rllib.balance import BalanceEnvironment
 from rllib.ball_trajectory import BallTrajectoryEnvironment
 
@@ -16,15 +16,16 @@ class BaseEnvironment(ABC):
         self.name = name
         policy = PolicyProvider.get_policy_for(name)
         if policy is not None:
-            self.policy = policy(continuous_action=Settings.CONTINUOUS_ACTIONS)
+            self.policy = policy(continuous_action=EnvParameters.CONTINUOUS_ACTIONS)
         self.n_agents = n_agents
         self.kwargs = kwargs
-        self.steps = Settings.NUM_STEPS
-        self.n_envs = Settings.NUM_ENVS
+        self.steps = EnvParameters.NUM_STEPS
+        self.n_envs = EnvParameters.NUM_ENVS
         self.render = True
         self.save_render = True
         self.env = self._initialize_environment()
-        # self._run()
+        if self.policy is not None:
+            self._run()
 
     def _initialize_environment(self):
         if self.name == "balance":
@@ -36,9 +37,9 @@ class BaseEnvironment(ABC):
                 scenario=self.name,
                 n_agents=self.n_agents,
                 num_envs=self.n_envs,
-                device=Settings.DEVICE,
-                continuous_actions=Settings.CONTINUOUS_ACTIONS,
-                wrapper=Settings.WRAPPER,
+                device=EnvParameters.DEVICE,
+                continuous_actions=EnvParameters.CONTINUOUS_ACTIONS,
+                wrapper=EnvParameters.WRAPPER,
                 random_package_pos_on_line=True,
                 control_two_agents=True,
                 **self.kwargs)

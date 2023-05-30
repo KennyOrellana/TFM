@@ -7,7 +7,7 @@ from models.team import Team
 
 
 class Simulation(BaseModel):
-    environment: Settings
+    settings: Settings
     agents: list[Agent]
     teams: list[Team]
     goals: list[Goal]
