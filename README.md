@@ -14,9 +14,9 @@ Once the JSON file is created, the simulator then translates this into the neces
 We have chosen several scenarios that optimally represent team formation problems, providing a testbed for robustness.
 | Heuristic | RLlib|
 |:-------------------------:|:-------------------------:|
-|<img width="256" src="https://github.com/matteobettini/vmas-media/blob/main/media/scenarios/transport.gif?raw=true">  Transport |  <img width="256" src="https://github.com/matteobettini/vmas-media/blob/main/media/scenarios/balance.gif?raw=true"> Balance|
-|<img width="256" src="https://github.com/matteobettini/vmas-media/blob/main/media/scenarios/reverse_transport.gif?raw=true"> Reverse Transport |  <img width="256" src="https://github.com/matteobettini/vmas-media/blob/main/media/scenarios/ball_trajectory.gif?raw=true"> Ball Trajectory|
-|<img width="256"  src="https://github.com/matteobettini/vmas-media/blob/main/media/scenarios/wheel.gif?raw=true">  Wheel |
+|<img width="256" alt="Transport" src="https://github.com/matteobettini/vmas-media/blob/main/media/scenarios/transport.gif?raw=true"><p align="center">transport</p> |  <img width="256" src="https://github.com/matteobettini/vmas-media/blob/main/media/scenarios/balance.gif?raw=true"> <p align="center">balance</p>|
+|<img width="256" src="https://github.com/matteobettini/vmas-media/blob/main/media/scenarios/reverse_transport.gif?raw=true"> <p align="center">reverse_transport</p> |  <img width="256" src="https://github.com/matteobettini/vmas-media/blob/main/media/scenarios/ball_trajectory.gif?raw=true"> <p align="center">ball_trajectory</p>|
+|<img width="256"  src="https://github.com/matteobettini/vmas-media/blob/main/media/scenarios/wheel.gif?raw=true">  <p align="center">wheel</p> |
 
 
 ## Structure of the JSON Simulation File
