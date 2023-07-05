@@ -1,7 +1,6 @@
 from typing import Type
 
 from vmas.scenarios.transport import HeuristicPolicy as TransportPolicy, HeuristicPolicy
-from vmas.scenarios.balance import HeuristicPolicy as BalancePolicy
 from vmas.scenarios.wheel import HeuristicPolicy as WheelPolicy
 
 
@@ -11,9 +10,7 @@ class PolicyProvider:
     def get_policy_for(environment) -> Type[HeuristicPolicy]:
         if environment == "transport" or environment == "reverse_transport":
             return TransportPolicy
-        if environment == "balance":
-            return BalancePolicy
-        if environment == "wheel":
+        elif environment == "wheel":
             return WheelPolicy
         else:
             return None  # TODO: raise exception

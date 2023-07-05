@@ -7,8 +7,7 @@ from vmas.simulator.utils import save_video
 
 from core.policy_provider import PolicyProvider
 from environments.env_parameters import EnvParameters
-from rllib.balance import BalanceEnvironment
-from rllib.ball_trajectory import BallTrajectoryEnvironment
+from rllib.rllib_environment import RLlibEnvironment, supported_environments
 
 
 class BaseEnvironment(ABC):
@@ -24,14 +23,12 @@ class BaseEnvironment(ABC):
         self.render = True
         self.save_render = True
         self.env = self._initialize_environment()
-        if self.policy is not None:
+        if policy is not None:
             self._run()
 
     def _initialize_environment(self):
-        if self.name == "balance":
-            return self._initialize_balance()
-        elif self.name == "ball_trajectory":
-            return self._initialize_ball_trajectory()
+        if self.name in supported_environments:
+            return self._initialize_rllib()
         else:
             return make_env(
                 scenario=self.name,
@@ -45,9 +42,6 @@ class BaseEnvironment(ABC):
                 **self.kwargs)
 
     def _run(self):
-        if self.name == "balance":
-            return
-
         frame_list = []  # For creating a gif
         init_time = time.time()
         step = 0
@@ -88,11 +82,8 @@ class BaseEnvironment(ABC):
             f"The average total reward was {total_reward}"
         )
 
-    def _initialize_balance(self):
-        return BalanceEnvironment(self.n_agents)
-
-    def _initialize_ball_trajectory(self):
-        return BallTrajectoryEnvironment(self.n_agents)
+    def _initialize_rllib(self):
+        return RLlibEnvironment(self.name, self.n_agents)
 
     def is_agent_active(self, agent_index):
         return True

@@ -1,7 +1,3 @@
-#  Copyright (c) 2022-2023.
-#  ProrokLab (https://www.proroklab.org/)
-#  All rights reserved.
-
 import os
 from typing import Dict, Optional
 
@@ -19,23 +15,27 @@ from ray.tune.integration.wandb import WandbLoggerCallback
 from vmas import make_env, Wrapper
 from vmas.examples.rllib import RenderingCallbacks, EvaluationCallbacks
 
+from rllib.vector_env_wrapper_robust import VectorEnvWrapperRobust
 
-def env_creator(config: Dict):
+supported_environments = ["balance", "ball_trajectory", "discovery", "dispersion"]
+
+
+def env_creator_robust(config: Dict):
     env = make_env(
         scenario=config["scenario_name"],
         num_envs=config["num_envs"],
         device=config["device"],
         continuous_actions=config["continuous_actions"],
-        wrapper=Wrapper.RLLIB,
         max_steps=config["max_steps"],
         # Scenario specific variables
         **config["scenario_config"],
     )
-    return env
+    scenario_config = config["scenario_config"]
+    return VectorEnvWrapperRobust(env, scenario_config["k_robustness"], scenario_config["failure_probability"])
 
 
-class BalanceEnvironment:
-    def __init__(self, n_agents: int):
+class RLlibEnvironment:
+    def __init__(self, scenario_name, n_agents: int, k_robustness: int = 0, failure_probability: float = 0.0):
         self.n_agents = n_agents
         self.num_vectorized_envs = 96
         self.num_workers = 5
@@ -43,7 +43,9 @@ class BalanceEnvironment:
         self.continuous_actions = True
         self.max_steps = 200
         self.scenario_config = {}
-        self.scenario_name = "balance"
+        self.scenario_name = scenario_name
+        self.k_robustness = k_robustness
+        self.failure_probability = failure_probability
 
         self.initialize()
         self.train()
@@ -51,8 +53,8 @@ class BalanceEnvironment:
     def initialize(self):
         if not ray.is_initialized():
             ray.init()
-            print("Ray init!")
-        register_env(self.scenario_name, lambda config: env_creator(config))
+            print("Ray init robust!")
+        register_env(f"tfm_{self.scenario_name}", lambda config: env_creator_robust(config))
 
     class EvaluationCallbacks(DefaultCallbacks):
         def on_episode_step(
@@ -140,7 +142,7 @@ class BalanceEnvironment:
             config={
                 "seed": 0,
                 "framework": "torch",
-                "env": self.scenario_name,
+                "env": f"tfm_{self.scenario_name}",
                 "kl_coeff": 0.01,
                 "kl_target": 0.01,
                 "lambda": 0.9,
@@ -171,6 +173,8 @@ class BalanceEnvironment:
                     # Scenario specific variables
                     "scenario_config": {
                         "n_agents": self.n_agents,
+                        "k_robustness": self.k_robustness,
+                        "failure_probability": self.failure_probability,
                     },
                 },
                 "evaluation_interval": 5,

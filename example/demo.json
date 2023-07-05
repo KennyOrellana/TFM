@@ -10,6 +10,11 @@
       "id": "agent1",
       "cost": 1,
       "skills": [
+        "ball_trajectory",
+        "balance",
+        "discovery",
+        "wheel",
+        "dispersion",
         "transport"
       ]
     }
